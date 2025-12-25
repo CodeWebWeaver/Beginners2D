@@ -1,21 +1,44 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
 
 public class GraphGeneratorController : MonoBehaviour {
     [SerializeField] private GraphPipelineConfig graphPipelineConfig;
     [SerializeField] private MapGenerationData mapGenerationData;
-    [SerializeField] private int seed = 12345;
+    [Inject] IDataRuntimeFactory dataRuntimeFactory;
+
+    public GraphView graphView;
+    [SerializeField] Button startButton;
 
     private void Start() {
+        if (startButton != null)
+            startButton.onClick.AddListener(GenerateGraph);
+    }
+
+    private void GenerateGraph() {
         if (graphPipelineConfig == null) {
             Debug.LogError("GraphPipelineConfig is not assigned!");
-            return;
         }
 
-        var pipeline = graphPipelineConfig.GeneratePipeline();
-        var context = new GraphGenerationContext(mapGenerationData, seed);
+        var pipeline = new GraphGenerationPipeline();
+        var stages = graphPipelineConfig.stageConfigs;
+
+        foreach (var stageConfig in stages) {
+            var stageInstance = dataRuntimeFactory.CreateInstanse(stageConfig) as IPipelineStage<GraphGenerationContext>;
+            pipeline.AddStage(stageInstance);
+        }
+
+        var context = new GraphGenerationContext(mapGenerationData);
 
         pipeline.Execute(context);
 
-        Debug.Log($"Generated graph with {context.Graph.GetAllNodes().Count} nodes");
+        Debug.Log($"Generated graph {context.Graph}");
+
+        graphView.DisplayGraph(context.Graph);
+    }
+
+    private void OnDestroy() {
+        if (startButton != null)
+        startButton.onClick.RemoveListener(GenerateGraph);
     }
 }
