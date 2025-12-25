@@ -16,11 +16,7 @@ public class GraphGenerator {
         graph = new Graph();
 
         CreateInitialGraph();
-        ModifyNodeCountWithDeviation();
 
-        AddFirstNode();
-        AddEndNode();
-        AddEndNode();
         graph.UpdateNodesData();
         CreateMainPaths();
 
@@ -31,21 +27,10 @@ public class GraphGenerator {
         for (int level = 0; level < settings.levelCount; level++) {
             List<GraphNode> currentLevelNodes = new List<GraphNode>();
             for (int i = 0; i < settings.initialNodesPerLevel; i++) {
-                GraphNode newNode = new GraphNode(graph.GetNextNodeId(), new Vector2(level, i));
+                GraphNode newNode = new GraphNode(level, i);
                 currentLevelNodes.Add(newNode);
             }
             graph.AddLevel(currentLevelNodes);
-        }
-    }
-
-    private void ModifyNodeCountWithDeviation() {
-        List<List<GraphNode>> levelNodes = graph.GetLevelNodes();
-
-        for (int level = 0; level < levelNodes.Count; level++) {
-            List<GraphNode> currentLevel = levelNodes[level];
-            int targetNodeCount = CalculateTargetNodeCount(level, levelNodes);
-
-            AdjustLevelToTargetCount(currentLevel, targetNodeCount, level);
         }
     }
 
@@ -73,16 +58,6 @@ public class GraphGenerator {
         return UnityEngine.Random.Range(min, max + 1);
     }
 
-    private void AdjustLevelToTargetCount(List<GraphNode> currentLevel, int targetCount, int level) {
-        int currentCount = currentLevel.Count;
-
-        if (currentCount > targetCount) {
-            RemoveNodesFromLevel(currentLevel, currentCount - targetCount);
-        } else if (currentCount < targetCount) {
-            AddNodesToLevel(currentLevel, targetCount - currentCount, level);
-        }
-    }
-
     private void RemoveNodesFromLevel(List<GraphNode> currentLevel, int nodesToRemove) {
         if (nodesToRemove <= 0) return;
 
@@ -102,14 +77,6 @@ public class GraphGenerator {
         }
     }
 
-    private void AddNodesToLevel(List<GraphNode> currentLevel, int nodesToAdd, int level) {
-        for (int i = 0; i < nodesToAdd; i++) {
-            GraphNode newNode = new GraphNode(graph.GetNextNodeId(),
-                new Vector2(level, currentLevel.Count));
-            newNode.level = level;
-            currentLevel.Add(newNode);
-        }
-    }
 
     private void CreateMainPaths() {
         List<List<GraphNode>> levelNodes = graph.GetLevelNodes();
@@ -141,7 +108,7 @@ public class GraphGenerator {
         foreach (var nextNode in connectedNode.nextLevelConnections) {
             if (nextNode.prevLevelConnections.Count > 1) {
                 GraphNode unnecessaryConnection = nextNode;
-                connectedNode.UnConnect(unnecessaryConnection);
+                connectedNode.Disconnect(unnecessaryConnection);
                 break;
             }
         }
@@ -194,32 +161,4 @@ public class GraphGenerator {
         return connectTo;
     }
 
-    private void AddFirstNode() {
-        List<List<GraphNode>> levelNodes = graph.GetLevelNodes();
-
-        List<GraphNode> enteranceLevel = new List<GraphNode>();
-        GraphNode enteranceNode = new GraphNode(graph.GetNextNodeId(), new Vector2(levelNodes.Count, 0));
-        enteranceLevel.Add(enteranceNode);
-
-        List<GraphNode> firstLevel = levelNodes[0];
-        graph.AddLevel(0, enteranceLevel);
-        foreach (GraphNode node in firstLevel) {
-            enteranceNode.ConnectToNext(node);
-        }
-    }
-
-    private void AddEndNode() {
-        List<List<GraphNode>> levelNodes = graph.GetLevelNodes();
-        List<GraphNode> lastLevel = levelNodes[levelNodes.Count - 1];
-
-        List<GraphNode> endLevel = new List<GraphNode>();
-        GraphNode endNode = new GraphNode(graph.GetNextNodeId(), new Vector2(levelNodes.Count, 0));
-        endLevel.Add(endNode);
-
-        graph.AddLevel(endLevel);
-
-        foreach (GraphNode node in lastLevel) {
-            endNode.ConnectToPrev(node);
-        }
-    }
 }

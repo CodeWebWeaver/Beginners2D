@@ -17,7 +17,7 @@ public class GraphCenterer {
             float offset = ((float)(maxLevelHeight - currentLevelHeight)) / 2;
 
             for (int i = 0; i < currentLevel.Count; i++) {
-                currentLevel[i].position = new Vector2(level, i + offset);
+                currentLevel[i].index = i;
             }
         }
     }
