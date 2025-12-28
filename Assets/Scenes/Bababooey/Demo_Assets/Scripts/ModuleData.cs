@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class ModuleData : MonoBehaviour
+[CreateAssetMenu(menuName = "Modules/Module")]
+public class ModuleData : ScriptableObject
 {
     public string moduleName;
     public string description;
