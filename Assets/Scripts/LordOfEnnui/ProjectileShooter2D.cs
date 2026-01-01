@@ -4,7 +4,7 @@ using UnityEngine;
 public class ProjectileShooter2D : MonoBehaviour
 {
     [SerializeField]
-    AEnemyStrategy shootStrat;
+    ACharacterStrategy shootStrat;
     
     [SerializeField]
     GameObject bulletObject;
@@ -32,7 +32,7 @@ public class ProjectileShooter2D : MonoBehaviour
 
     void Start()
     {
-        if (shootStrat == null) shootStrat = GetComponent<AEnemyStrategy>();
+        if (shootStrat == null) shootStrat = GetComponent<ACharacterStrategy>();
         if (bullet == null) bullet = bulletObject.GetComponent<ABullet2D>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -47,7 +47,7 @@ public class ProjectileShooter2D : MonoBehaviour
             bulletTimer = 0;
 
             foreach (float fireStreamOffset in fireStreams) {
-                Vector3 spreadDirection = Quaternion.AngleAxis(Random.Range(-fireSpread, fireSpread) + shootStrat.facingAngle + fireStreamOffset, transform.forward) * transform.right;
+                Vector3 spreadDirection = Quaternion.AngleAxis(Random.Range(-fireSpread, fireSpread) + shootStrat.FireAngle() + fireStreamOffset, transform.forward) * transform.right;
                 Vector3 placePosition = transform.position + spreadDirection * placeDistance;
 
                 GameObject bo = Instantiate(bulletObject, placePosition, Quaternion.identity);
@@ -57,21 +57,4 @@ public class ProjectileShooter2D : MonoBehaviour
             }
         }
     }
-
-    //private IEnumerator FireBullets() {
-    //    WaitForSeconds wait = new WaitForSeconds(1 / bullet.fireRate);
-
-    //    while (true) {
-    //        if (fire) {
-    //            Vector3 targetDirection = (target.transform.position - transform.position).normalized;
-
-    //            Vector3 placePosition = transform.position + targetDirection * placeDistance;
-    //            GameObject bo = Instantiate(bulletObject, placePosition, Quaternion.identity);
-    //            bo.GetComponent<Rigidbody2D>().linearVelocity = targetDirection * bullet.bulletSpeed;
-    //            rb.AddForce(-targetDirection * bullet.recoilForce);
-    //        }
-
-    //        yield return wait;
-    //    }
-    //}
 }

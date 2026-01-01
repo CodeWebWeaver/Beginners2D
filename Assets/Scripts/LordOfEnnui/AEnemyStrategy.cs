@@ -6,7 +6,7 @@ public enum EnemyAIState {
     Combat
 }
 
-public abstract class AEnemyStrategy : MonoBehaviour {
+public abstract class AEnemyStrategy : ACharacterStrategy {
 
     [SerializeField]
     EnemyAIState state = EnemyAIState.Idle;
@@ -31,13 +31,11 @@ public abstract class AEnemyStrategy : MonoBehaviour {
         if (facingArrow != null) facingAngle = facingArrow.transform.rotation.eulerAngles.z;
     }
 
-
-
-    public virtual Vector3 GetAimDirection() {
+    public override Vector3 AimDirection() {
         return (target.transform.position - transform.position).normalized;
     }
 
-    public virtual bool FireThisFrame(ABullet2D bullet) {
+    public override bool FireThisFrame(ABullet2D bullet) {
         return true;
     }
 
@@ -45,6 +43,14 @@ public abstract class AEnemyStrategy : MonoBehaviour {
         Vector3 targetPosition = target.transform.position;
         float targetDistance = Vector3.Distance(targetPosition, transform.position);
         return targetDistance > idealDistanceFromTarget ? targetPosition : transform.position;
+    }
+
+    public override Vector3 MoveDirection() {
+        return IdealPosition() - transform.position;
+    }
+
+    public override float FireAngle() {
+        return facingAngle;
     }
 
     public void SetFacing(float facingAngle) {
