@@ -7,7 +7,7 @@ public class PlayerAnimator2D : MonoBehaviour
     Animator animator;
 
     [SerializeField]
-    PlayerController2D controller;
+    PlayerInputStrategy strat;
 
     [SerializeField]
     int verticalFieldDegrees = 90;
@@ -37,13 +37,13 @@ public class PlayerAnimator2D : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();    
-        controller = gameObject.GetComponentInParent<PlayerController2D>();
+        strat = gameObject.GetComponentInParent<PlayerInputStrategy>();
     }
 
     void FixedUpdate()
     {
-        Vector2 playerInput = controller.playerInput;
-        float magnitude = controller.playerInput.magnitude;
+        Vector2 playerInput = strat.MoveDirection();
+        float magnitude = playerInput.magnitude;
         float angle = Vector2.SignedAngle(Vector2.right, playerInput);
         angle = angle < 0 ? 360 + angle : angle;
 
@@ -68,7 +68,7 @@ public class PlayerAnimator2D : MonoBehaviour
             
             state = lookRight ? 1 : lookUp ? 2 : lookLeft ? 3 : lookDown ? 4 : -1;
 
-            int particles = Mathf.FloorToInt(controller.isSprinting? sprintParticles : particlesPerSecond * Time.fixedDeltaTime);
+            int particles = Mathf.FloorToInt(strat.isSprinting? sprintParticles : particlesPerSecond * Time.fixedDeltaTime);
             thrustParticles[0].Emit(lookLeft? particles : 0);
             thrustParticles[1].Emit(lookDown ? particles : 0);
             thrustParticles[2].Emit(lookRight ? particles : 0);

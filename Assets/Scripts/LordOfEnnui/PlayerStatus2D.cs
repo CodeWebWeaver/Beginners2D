@@ -3,16 +3,37 @@ using UnityEngine;
 
 public class PlayerStatus2D : ACharacterStatus2D
 {
+    [SerializeField]
+    PlayerState pState;
+    [SerializeField]   
     float damageIframes = 60, sprintIframes = 30, flashesPerSecond = 2;
+
+    protected override void Start() {
+        base.Start();
+        pState = LDirectory2D.Instance.pState;
+    }
 
     protected override bool OnCollsionIsDamaged(GameObject other) {
         return other.layer == Layers.Enemy || other.layer == Layers.EnemyAbility;
     }
 
     protected override void OnDamageTaken() {
+        pState.currentHealth--;
         StartCoroutine(Invincibility((int) damageIframes, new[] { Layers.Enemy, Layers.EnemyAbility }));
     }
 
+    protected override void OnCollisionEnter2D(Collision2D collision) {
+        base.OnCollisionEnter2D(collision);
+
+        if (collision.gameObject.layer == Layers.Pickup) {
+            OilPickup oil;
+            if (collision.gameObject.TryGetComponent<OilPickup>(out oil)) {
+                pState.currentOil += oil.oilAmount;
+            }
+            Destroy(collision.gameObject);
+        }
+    }    
+    
     public void HandleDashInvincibility() {
         StartCoroutine(Invincibility((int) sprintIframes, new[] { Layers.EnemyAbility }));
     }
@@ -40,5 +61,6 @@ public class PlayerStatus2D : ACharacterStatus2D
         foreach (int layer in ignoreLayers) {
             Physics2D.IgnoreLayerCollision(Layers.Player, layer, false);
         }
-    }
+    }    
+
 }
