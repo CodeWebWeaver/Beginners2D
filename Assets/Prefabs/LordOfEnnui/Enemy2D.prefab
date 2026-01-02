@@ -209,15 +209,17 @@ MonoBehaviour:
   shootStrat: {fileID: 0}
   bulletObject: {fileID: 6402260014309811256}
   bullet: {fileID: 0}
-  currentMove: {fileID: 0}
   rb: {fileID: 0}
-  placeDistance: 0.4
-  fireRate: 10
+  fireRate: 1
+  bulletSpeed: 10
   fireSpread: 1
-  fireStreams:
+  recoilForce: 5
+  placeDistance: 0.4
+  fireStreamType: 1
+  customFireStreams:
   - 0
-  - 30
-  - -30
+  fireStreamSpacing: 30
+  fireStreamNumber: 3
   timeToBullet: 0
   bulletTimer: 0
 --- !u!114 &6687405341146536642
