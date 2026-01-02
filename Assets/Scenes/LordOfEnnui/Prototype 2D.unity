@@ -1073,18 +1073,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6000097017858397469, guid: 9ef2ef8e24624574e852647f99c7bad0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000097017858397469, guid: 9ef2ef8e24624574e852647f99c7bad0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000097017858397469, guid: 9ef2ef8e24624574e852647f99c7bad0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000097017858397469, guid: 9ef2ef8e24624574e852647f99c7bad0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1123,10 +1111,6 @@ PrefabInstance:
     - target: {fileID: 6000097017858397469, guid: 9ef2ef8e24624574e852647f99c7bad0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000097017858397469, guid: 9ef2ef8e24624574e852647f99c7bad0, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7275294244138327643, guid: 9ef2ef8e24624574e852647f99c7bad0, type: 3}
       propertyPath: m_Name
@@ -1387,10 +1371,6 @@ PrefabInstance:
       propertyPath: oilBar
       value: 
       objectReference: {fileID: 403338157}
-    - target: {fileID: 8371899358233087026, guid: 65163cecc52a8da4592138cff01bbb41, type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1405,17 +1385,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1437061883750157931, guid: fdb426e0c4cad0c44a71bd603fca4d04, type: 3}
-      propertyPath: fireRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1437061883750157931, guid: fdb426e0c4cad0c44a71bd603fca4d04, type: 3}
       propertyPath: shootParams
       value: 
       objectReference: {fileID: 11400000, guid: b40e13be959b7ff449217a00bf860cee, type: 2}
-    - target: {fileID: 1437061883750157931, guid: fdb426e0c4cad0c44a71bd603fca4d04, type: 3}
-      propertyPath: fireStreamType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1437061883750157931, guid: fdb426e0c4cad0c44a71bd603fca4d04, type: 3}
       propertyPath: inheritVelocityMultiplier
       value: 0
@@ -1518,18 +1490,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1103805714892952534, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
-      propertyPath: fireRate
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1103805714892952534, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
-      propertyPath: fireSpread
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1103805714892952534, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
-      propertyPath: bulletSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1103805714892952534, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
       propertyPath: shootParams
       value: 
       objectReference: {fileID: 11400000, guid: 9b286b7484f80614eab11bf585b9b6af, type: 2}
@@ -1544,14 +1504,6 @@ PrefabInstance:
     - target: {fileID: 2086489586735598708, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2086489586735598708, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4378527887818446221, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6584275435257596009, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1598,16 +1550,12 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8564355641468353269, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
+      propertyPath: maxAimAssist
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564355641468353269, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
       propertyPath: inputQueueTime
       value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8826804158604834315, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
-      propertyPath: lifetime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8826804158604834315, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
-      propertyPath: playerBullet
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8928919092424792445, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
       propertyPath: maxSpeed
