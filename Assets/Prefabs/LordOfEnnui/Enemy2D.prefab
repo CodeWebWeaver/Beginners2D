@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1437061883750157931}
   - component: {fileID: 6687405341146536642}
   - component: {fileID: 7799905026549891697}
+  - component: {fileID: 1277025443967043746}
   m_Layer: 12
   m_Name: Enemy2D
   m_TagString: Enemy
@@ -97,7 +98,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9c397937ab665e34ab6acccc268684d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -232,7 +233,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   maxSpeed: 10
-  maxSpeedFiring: 3
   maxAcceleration: 5
   turnSpeed: 2
   facingType: 1
@@ -253,10 +253,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08a5f7fd0a240a4da1908fd76752c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  state: 0
   target: {fileID: 0}
   facingArrow: {fileID: 3625395344029992701}
   facingAngle: 0
   idealDistanceFromTarget: 5
+  turnCharacter: 1
+--- !u!114 &1277025443967043746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199075493144228177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47490cdc3b4a8464ea1d29996155d875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  contactKnockbackForce: 10
+  hitThisFrame: 0
+  rb: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  maxHealth: 5
+  currentHealth: 4
 --- !u!1 &5446497294059313999
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +335,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9c397937ab665e34ab6acccc268684d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
