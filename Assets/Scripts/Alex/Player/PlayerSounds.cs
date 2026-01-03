@@ -26,12 +26,6 @@ public class PlayerSounds : MonoBehaviour {
     private EventInstance _movingInstance;
     private EventInstance _shieldInstance;
 
-    private FmodAudioService _audioService;
-
-    [Inject]
-    public void Construct(FmodAudioService audioService) {
-        _audioService = audioService;
-    }
 
     private void Start() {
         InitializeLoopInstances();
@@ -101,18 +95,11 @@ public class PlayerSounds : MonoBehaviour {
     public void PlaySwordHit() => PlayOneShot(swordHit);
     public void PlayGunHit() => PlayOneShot(gunHit);
 
-    public void PlayLanding(float impactForce) {
-        _audioService.PlayOneShotWithParameter(
-            landingSound,
-            transform.position,
-            "Impact",
-            Mathf.Clamp01(impactForce)
-        );
-    }
+
 
     private void PlayOneShot(EventReference eventReference) {
         if (!eventReference.IsNull) {
-            _audioService.PlayOneShot(eventReference, transform.position);
+            RuntimeManager.PlayOneShot(eventReference, transform.position);
         }
 #if UNITY_EDITOR
         else {
