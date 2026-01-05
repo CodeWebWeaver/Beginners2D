@@ -10,10 +10,13 @@ public class EnemyCollision2D : ACharacterCollision2D
         return other.layer == Layers.PlayerAbility;
     }
 
-    protected override void OnHit() {
+    public override void OnHit(GameObject other, int damage = 1) {
+        base.OnHit(other, damage);
         currentHealth = currentHealth > maxHealth ? maxHealth : currentHealth;
-        currentHealth--;
+        currentHealth -= damage;
+        damageParticles.transform.localEulerAngles = new Vector3(0, 0, (transform.position - other.transform.position).Get2DAngle());
         StartCoroutine(DamageFlash());
+        HandleDamageParticles();
         if (currentHealth < 0) {
             Destroy(gameObject);
         }

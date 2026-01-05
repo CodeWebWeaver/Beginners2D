@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Kelly/New Scene.unity.meta
+guid: c278ec08e05d5c44093fb8e51b378e0a
+========
 guid: 58c8e9f1ac084904980870f2ff7dc0e1
+>>>>>>>> origin/main:Assets/Scenes/Bababooey/Game (wip).unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
