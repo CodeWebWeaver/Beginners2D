@@ -5,7 +5,7 @@ using UnityEngine;
 public class StateMachine {
     private IState _currentState;
     public IState CurrentState => _currentState;
-    public Action<IState> OnStateChanged;
+    public Action<IState> OnStateEnter;
 
     public void ChangeState(IState newState) {
         if (ReferenceEquals(newState, _currentState)) {
@@ -15,9 +15,11 @@ public class StateMachine {
         _currentState?.Exit();
 
         _currentState = newState;
+        OnStateEnter?.Invoke(newState);
+
         _currentState.Enter();
 
-        OnStateChanged?.Invoke(_currentState);
+        
     }
 
     public void Tick() {

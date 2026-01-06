@@ -13,7 +13,12 @@ public class GameManager : MonoBehaviour, IGameManager {
     private void Start() {
         _gameStateMachine = new ContextStateMachine<GameManager>(this, stateFactory);
 
+        _gameStateMachine.OnStateEnter += HandleStateChanged;
         _gameStateMachine.ChangeState<BootstrapState>();
+    }
+
+    private void HandleStateChanged(IState state) {
+        Debug.Log($"State changed to : {state}");
     }
 
     private void OnApplicationQuit() {
@@ -59,6 +64,10 @@ public class GameManager : MonoBehaviour, IGameManager {
 #else
         Application.Quit();
 #endif
+    }
+
+    private void OnDestroy() {
+        _gameStateMachine.OnStateEnter -= HandleStateChanged;
     }
 }
 
