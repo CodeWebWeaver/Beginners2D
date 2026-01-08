@@ -1,17 +1,14 @@
-using UnityEngine;
-
 public class EnemyAnimator2D : ASpriteAnimator2D
 {
-    [SerializeField]
-    AEnemyStrategy strat;
+    AEnemyStrategy eStrat;
 
     protected override void Start() {
         base.Start();
-        strat = GetComponentInParent<AEnemyStrategy>();
+        eStrat = (AEnemyStrategy) strat;
     }
 
     private void FixedUpdate() {
-        ComputeAnimatorValues(strat.facingAngle, strat.speed);
+        ComputeAnimatorValues(eStrat.facingAngle, eStrat.speed);
         SetAnimatorValues();
     }
 }

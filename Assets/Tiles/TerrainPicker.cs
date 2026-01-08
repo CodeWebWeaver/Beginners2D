@@ -1,11 +1,18 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
+using Zenject;
 
 public class TerrainPicker : MonoBehaviour
-{ 
+{
+
+    IStarNavigationService starNavigationService;
+
+    [Inject]
+    void StarNavigationService(IStarNavigationService service) {
+        Debug.Log("LOAD: " + service.CurrentStar);
+        starNavigationService = service;
+    }
 
     // [SerializeField]
     // private int _spawnRate=3; //Set from 1-10: # of enemies you'd expect to spawn in a 20x20 grid

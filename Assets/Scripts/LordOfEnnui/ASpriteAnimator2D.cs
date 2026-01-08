@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public abstract class ASpriteAnimator2D : MonoBehaviour {
@@ -6,6 +8,9 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
 
     [SerializeField]
     protected SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    protected ACharacterStrategy strat;
 
     [SerializeField]
     protected int verticalFieldDegrees = 90;
@@ -33,10 +38,18 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
         movingUpParam = Animator.StringToHash("isMovingUp"),
         movingDownParam = Animator.StringToHash("isMovingDown");
 
+    [Header("AfterImage")]
+    [SerializeField]
+    protected SpriteRenderer afterImage;
+    [SerializeField]
+    protected float afterImageCreate = 0.01f, afterImageDuration = 0.4f;
+
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        strat = GetComponentInParent<ACharacterStrategy>();
+        if (afterImage != null) StartCoroutine(AfterImage());
     }
 
     protected virtual void ComputeAnimatorValues(float angle, float speed) {
@@ -76,5 +89,21 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    protected IEnumerator AfterImage() {
+        WaitForSeconds wait = new(afterImageCreate);
+        while (true) {
+            if (strat.isSprinting) {
+                SpriteRenderer aImg = Instantiate(afterImage, transform.position, Quaternion.identity, transform);
+                aImg.transform.SetParent(null, true);
+                aImg.gameObject.SetActive(true);
+
+                aImg.sprite = spriteRenderer.sprite;
+
+                aImg.DOFade(0f, afterImageDuration).SetLink(aImg.gameObject).OnComplete(() => Destroy(aImg.gameObject));
+            }
+            yield return wait;
+        }
     }
 }

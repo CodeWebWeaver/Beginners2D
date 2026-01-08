@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7369221751875010511}
   - component: {fileID: 2087589454462217648}
   m_Layer: 12
-  m_Name: CECollider
+  m_Name: FCECollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1095656773827935598}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.61, z: 0}
+  m_LocalPosition: {x: 0, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -76,7 +76,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.7, y: 2.5}
   m_EdgeRadius: 0
 --- !u!1 &1518845726172362158
 GameObject:
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 5161245583087709072}
   - component: {fileID: 6472936281896816825}
   m_Layer: 12
-  m_Name: CEAnimations
+  m_Name: FCEAnimations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 8920432482774926878}
   - component: {fileID: 1742568511748253023}
   m_Layer: 12
-  m_Name: CrystalEnemy
+  m_Name: FireCrystalEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -560,8 +560,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   spriteRenderer: {fileID: 0}
   damageParticles: {fileID: 7921973443375250153}
-  maxHealth: 5
-  currentHealth: 5
+  maxHealth: 10
+  currentHealth: 10
   lState: {fileID: 0}
   collider2d: {fileID: 2087589454462217648}
 --- !u!1 &3582809170892362469

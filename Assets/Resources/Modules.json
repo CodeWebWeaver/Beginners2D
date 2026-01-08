@@ -10,7 +10,8 @@
                 "damage": 1,
                 "damageType": 1,
                 "invulnerabilityType": 3
-            }
+            },
+            "unique":  true
         },
 
         {
@@ -36,8 +37,8 @@
             "icon": "Chassis",
             "name": "Reinforced Chassis",
             "moduleType": 0,
-            "description": "+1 Max Health",
-            "healthModifier": 1
+            "description": "+2 Health",
+            "healthModifier": 2
         },
 
         {

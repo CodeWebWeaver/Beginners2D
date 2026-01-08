@@ -8,8 +8,7 @@ public class CrystalEnemyAnimator2D : ASpriteAnimator2D {
     Animator eyeAnimator;
     SpriteRenderer eyeRenderer;
     
-    [SerializeField]
-    AEnemyStrategy strat;
+    AEnemyStrategy eStrat;
 
     [SerializeField]
     float maxEyeBrightness = 6f, eyeBrightness;
@@ -28,19 +27,19 @@ public class CrystalEnemyAnimator2D : ASpriteAnimator2D {
 
     protected override void Start() {
         base.Start();
-        strat = GetComponentInParent<AEnemyStrategy>();
+        eStrat = (AEnemyStrategy) strat;
         eyeRenderer = eyeAnimator.GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate() {
-        ComputeAnimatorValues(strat.facingAngle, strat.speed);
+        ComputeAnimatorValues(eStrat.facingAngle, eStrat.speed);
         animator.SetBool(isFacingForward, lookDown);
         animator.SetBool(isFacingSide, lookLeft || lookRight);
-        animator.SetBool(isAttacking, strat.timeToFire < attackForewarn);            
+        animator.SetBool(isAttacking, eStrat.timeToFire < attackForewarn);            
         eyeAnimator.SetBool(isFacingForward, lookDown);
         eyeAnimator.SetBool(isFacingSide, lookLeft || lookRight);
-        eyeAnimator.SetBool(isAttacking, strat.timeToFire < attackForewarn);
-        eyeBrightness = Mathf.Min(1f + maxEyeBrightness * eyeBrightnessCurve.Evaluate(1f - strat.timeToFire), maxEyeBrightness + 1f);
+        eyeAnimator.SetBool(isAttacking, eStrat.timeToFire < attackForewarn);
+        eyeBrightness = Mathf.Min(1f + maxEyeBrightness * eyeBrightnessCurve.Evaluate(1f - eStrat.timeToFire), maxEyeBrightness + 1f);
         eyeRenderer.material.SetFloat(hdrIntensity, eyeBrightness);
 
         eyeAnimator.gameObject.SetActive(!lookUp);
