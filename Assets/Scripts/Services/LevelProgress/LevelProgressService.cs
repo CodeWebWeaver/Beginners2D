@@ -44,8 +44,10 @@ public class LevelProgressService : ILevelProgressService, IDataLoader, IDataSav
 [Serializable]
 [DataSource(DataSourceType.PlayerPrefs, "level_progress")]
 public class PlayerProgressData {
-    public int CurrentLevel;
+    public int CurrentLevel = 1;
     public int HighestLevelUnlocked;
+
+    public int TotalLayers = 0;
 
     public bool IsNewGame = true;
 }

@@ -15,6 +15,8 @@ public class StarMapVisualizer : MonoBehaviour {
     [SerializeField] private Transform _container;
     [SerializeField] private float _layerSpacing = 2.5f;
     [SerializeField] private float _starSpacing = 1.2f;
+    [Range (min: 0f, max: 1f)]
+    [SerializeField] private float _randomPositionMultiplier = 1f;
 
     [Header("Connections")]
     [SerializeField] private float _lineWidth = 0.08f;
@@ -73,9 +75,17 @@ public class StarMapVisualizer : MonoBehaviour {
     }
 
     private Vector3 CalculatePosition(LayerCoord coord, int layerStarCount) {
-        float x = coord.Layer * _layerSpacing;
-        float y = (coord.Index - (layerStarCount - 1) / 2f) * _starSpacing;
-        return new Vector3(x, y, 0);
+        float baseX = coord.Layer * _layerSpacing;
+        float baseY = (coord.Index - (layerStarCount - 1) / 2f) * _starSpacing;
+
+        float maxRadius = Mathf.Min(_layerSpacing, _starSpacing) * _randomPositionMultiplier;
+
+        Vector2 randomInCircle = UnityEngine.Random.insideUnitCircle * maxRadius;
+
+        float finalX = baseX + randomInCircle.x;
+        float finalY = baseY + randomInCircle.y;
+
+        return new Vector3(finalX, finalY, 0);
     }
 
     public List<StarView> GetAllViews() {

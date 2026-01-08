@@ -37,6 +37,28 @@ public class StarMap {
     public IEnumerable<int> GetLayers() => _starsByLayer.Keys.OrderBy(l => l);
 
     public LayerCoord GetBeginningCoords() {
-        return new LayerCoord(0, 0);
+        if (!_starsByLayer.Any())
+            return new LayerCoord(0, 0);
+
+        int firstLayer = _starsByLayer.Keys.Min();
+        var firstLayerStars = _starsByLayer[firstLayer];
+
+        return firstLayerStars
+            .OrderBy(s => s.Coord.Index) 
+            .First()
+            .Coord;
+    }
+
+    public LayerCoord GetEndingCoords() {
+        if (!_starsByLayer.Any())
+            return new LayerCoord(0, 0);
+
+        int lastLayer = _starsByLayer.Keys.Max();
+        var lastLayerStars = _starsByLayer[lastLayer];
+
+        return lastLayerStars
+            .OrderBy(s => s.Coord.Index)
+            .First()
+            .Coord;
     }
 }

@@ -51,8 +51,8 @@ public class NodeCreationStage : IPipelineStage<GraphGenerationContext> {
 
         int prevLevelNodeCount = levelNodes[level - 1].Count;
         var (minPossible, maxPossible) = CalculateNodeRange(prevLevelNodeCount, settings);
-
-        return context.Random.Next(minPossible, maxPossible + 1);
+        int resultCount = context.Random.Next(minPossible, maxPossible + 1);
+        return resultCount;
     }
 
     private bool IsFirstOrLastLevel(int level, GraphGenerationConfig settings) {

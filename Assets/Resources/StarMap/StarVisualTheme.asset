@@ -17,5 +17,6 @@ MonoBehaviour:
   VisitedColor: {r: 1, g: 1, b: 1, a: 0.6666667}
   CurrentColor: {r: 1, g: 1, b: 1, a: 1}
   SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-  NormalScale: 1
-  HoverScale: 1.5
+  HighlightedColor: {r: 1, g: 0.8741453, b: 0, a: 1}
+  LockedLineColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+  AvailableLineColor: {r: 0.35209748, g: 0.990566, b: 0.3224012, a: 1}

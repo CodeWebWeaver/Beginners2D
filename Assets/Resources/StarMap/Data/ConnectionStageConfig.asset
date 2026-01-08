@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ConnectionStageConfig
   m_EditorClassIdentifier: Assembly-CSharp::ConnectionStageConfig
   instanceName: ConnectionStageConfig
-  MaxConnectionDistance: 1.95
+  MaxConnectionDistance: 2
   MaxConnectionsPerNode: 50
-  RandomConnectionChance: 0.852
-  ConnectionCandidatesCount: 3
+  RandomConnectionChance: 0.777
+  ConnectionCandidatesCount: 155

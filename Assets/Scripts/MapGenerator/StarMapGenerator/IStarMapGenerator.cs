@@ -35,6 +35,11 @@ public class StarMapGenerator : IStarMapGenerator, IDataLoader {
         CreateFromGraph(context);
         PopulatePlanetData(context);
 
+        LayerCoord coords = map.GetEndingCoords();
+        if (map.TryGetStar(coords, out Star star)) {
+            star.IsLast = true;
+        }
+
         return context.StarMap;
     }
 

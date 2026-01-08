@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -34,20 +34,22 @@ public class StarMapController : MonoBehaviour {
     private void InitializeMap() {
         PlayerProgressData progress = _levelProgress.GetProgress();
 
-        if (progress.IsNewGame) {
+        if (progress.IsNewGame || _navigation.HasEmptyMap) {
             CreateNewMap();
-            progress.IsNewGame = false;
-            _levelProgress.SetProgress(progress);
-        } else if (!_navigation.HasEmptyMap) {
-            _navigation.RefreshMap();
-        } else {
-            CreateNewMap();
+            return;
         }
+        _navigation.RefreshMap();
     }
 
     private void CreateNewMap() {
         StarMap starMap = _generation.GenerateNewMap(_generationConfig);
         _navigation.SetNewMap(starMap);
+
+        PlayerProgressData playerProgressData = new();
+        playerProgressData.TotalLayers = starMap.GetLayers().ToList().Count;
+        playerProgressData.IsNewGame = false;
+
+        _levelProgress.SetProgress(playerProgressData);
 
     }
 
