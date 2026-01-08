@@ -48,15 +48,19 @@ public class ProjectileShooter2D : MonoBehaviour
     }
 
     private void Update() {
-        timeToBullet = 1 / shootParams.fireRate;
+        float effectiveFireRate = shootParams.fireRate * shootStrat.GetFireRateMult();
+        timeToBullet = 1f / effectiveFireRate;
         bulletTimer += Time.deltaTime;
     }
 
     private void FixedUpdate() {
         bool fireInput = shootStrat.FireThisFrame(bullet, shootParams);
         if (!fireInput) bulletTimer = 0;
-        if (fireInput && bulletTimer > timeToBullet) {
-            shootStrat.OnFire();
+        bool fire = fireInput && bulletTimer > timeToBullet;
+        shootStrat.SetTimeToFire((timeToBullet - bulletTimer) / timeToBullet, fire);
+
+        if (fire) {
+            
             bulletTimer = 0;
 
             float[] fireStreams = shootParams.customFireStreams;
@@ -79,7 +83,8 @@ public class ProjectileShooter2D : MonoBehaviour
 
             Vector3 recoilDirection = Vector3.zero;
             Vector3 startPosition = transform.position + new Vector3(0, verticalOffset, 0) + highVelolcityFudge * Time.fixedDeltaTime * (Vector3) rb.linearVelocity;
-            float targetAngle = (shootStrat.TargetLocation() - startPosition).Get2DAngle();
+            float targetAngle = shootStrat.FireAngle();
+            targetAngle = targetAngle < 0 ? (shootStrat.TargetLocation() - startPosition).Get2DAngle() : targetAngle;
             foreach (float fireStreamOffset in fireStreams) {
                 Vector3 spreadDirection = Quaternion.AngleAxis(Random.Range(-shootParams.fireSpread, shootParams.fireSpread) + targetAngle + fireStreamOffset, transform.forward) * transform.right;
                 Vector3 placePosition = startPosition + spreadDirection * shootParams.placeDistance; 

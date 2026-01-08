@@ -1,25 +1,36 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using Zenject;
 
 public class TerrainPicker : MonoBehaviour
-{ 
+{
 
-    [SerializeField]
-    private int _spawnRate=3; //Set from 1-10: # of enemies you'd expect to spawn in a 20x20 grid
+    IStarNavigationService starNavigationService;
 
-    [SerializeField]
-    private int _obstacleDensity=5; //Set from 1-20: % of tiles to be covered by obstacles.
+    [Inject]
+    void StarNavigationService(IStarNavigationService service) {
+        Debug.Log("LOAD: " + service.CurrentStar);
+        starNavigationService = service;
+    }
+
+    // [SerializeField]
+    // private int _spawnRate=3; //Set from 1-10: # of enemies you'd expect to spawn in a 20x20 grid
+
+    // [SerializeField]
+    // private int _obstacleDensity=5; //Set from 1-20: % of tiles to be covered by obstacles.
 
     [SerializeField]
     private List<string> _modulesList;
 
     [SerializeField]
-    private int _borderSizeX=15;
+    private List<GameObject> _enemyListDefault;
 
     [SerializeField]
-    private int _borderSizeY=5;
+    private int _borderSizeX=17;
+
+    [SerializeField]
+    private int _borderSizeY=7;
 
     [SerializeField]
     private obstaclePlacer _obstaclePlacer;
@@ -29,6 +40,9 @@ public class TerrainPicker : MonoBehaviour
 
     [SerializeField]
     private modulePlacer _modulePlacer;
+
+    [SerializeField]
+    private oilPlacer _oilPlacer;
 
     [SerializeField]
     private GameObject _background;
@@ -131,6 +145,9 @@ public class TerrainPicker : MonoBehaviour
     [SerializeField]
     private Color islandColor;
 
+    [SerializeField]
+    private TerrainSpawnStageConfig terrainDefault;
+
 
     // private Tile TerrainBase;
 
@@ -142,10 +159,19 @@ public class TerrainPicker : MonoBehaviour
     public string _terrainLabel = "rock";
 
     void Start(){
-        setTiles(_terrainLabel);
+        // setTiles(_terrainLabel);
+        setTiles(terrainDefault.enemyList,terrainDefault.terrainType,terrainDefault.spawnRate,terrainDefault.obstacleDensity,terrainDefault.moduleCount,terrainDefault.oilCount);
+    }    
+    
+    private void OnSceneLoaded(Scene level, object data)
+    {
+        if (level.name == "Level_1" && data is TerrainSpawnStageConfig terrain)
+        {
+            setTiles(terrain.enemyList,terrain.terrainType,terrain.spawnRate,terrain.obstacleDensity,terrain.moduleCount,terrain.oilCount);
+        }
     }
-
-    private void setTiles(string selectedTerrain="random"){
+// Isabelle to add oil count and module count, oil spawners, enemy list for each land (serialize this)
+    private void setTiles(List<GameObject> enemyList,string selectedTerrain="random", int enemyRate=1,int obsDensity=1,int moduleCount=3,int oilCount=6){
         BoundsInt bounds = _tilemap.cellBounds;
         Debug.Log("Size:");
         int width = bounds.size.x;
@@ -229,7 +255,7 @@ public class TerrainPicker : MonoBehaviour
         //Set the Color to the values gained from the Sliders
         Color background_color;
 
-
+        //enums? (ess ints)
         switch(_terrainLabel){
             case "crater":
                 background_color = craterColor;
@@ -290,14 +316,19 @@ public class TerrainPicker : MonoBehaviour
             }
         }
 
-        // Debug.Log("Making Modules");
-        // _modulePlacer.MakeModules(_modulesList,_borderSizeX,_borderSizeY);
+        Debug.Log("Making Modules");
+        _modulePlacer.MakeModules(_modulesList,_borderSizeX,_borderSizeY,moduleCount);
+
+        Debug.Log("Making Oil");
+        _oilPlacer.MakeOil(_borderSizeX,_borderSizeY,oilCount);
 
         Debug.Log("Making obstacles");
-        _obstaclePlacer.MakeObstacles(_terrainLabel,_obstacleDensity);//set input to % of tiles having obstacles, 1-20
+        // _obstaclePlacer.MakeObstacles(_terrainLabel,_obstacleDensity);//set input to % of tiles having obstacles, 1-20
+        _obstaclePlacer.MakeObstacles(_terrainLabel,obsDensity,_borderSizeX,_borderSizeY);//set input to % of tiles having obstacles, 1-20
         
-        Debug.Log("Making Enemies");
-        _enemyPlacer.MakeEnemies(_spawnRate,_borderSizeX,_borderSizeY);//set input to spawn rate (avg # of enemies to spawn in a 20x20 grid)
+        Debug.Log("Making Enemies"); 
+        // _enemyPlacer.MakeEnemies(_spawnRate,_borderSizeX,_borderSizeY);//set input to spawn rate (avg # of enemies to spawn in a 20x20 grid)
+        _enemyPlacer.MakeEnemies(enemyRate,_borderSizeX,_borderSizeY,enemyList);//set input to spawn rate (avg # of enemies to spawn in a 20x20 grid)
 
     }
 

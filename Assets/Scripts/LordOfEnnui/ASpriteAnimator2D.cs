@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public abstract class ASpriteAnimator2D : MonoBehaviour {
@@ -8,6 +10,9 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
     protected SpriteRenderer spriteRenderer;
 
     [SerializeField]
+    protected ACharacterStrategy strat;
+
+    [SerializeField]
     protected int verticalFieldDegrees = 90;
 
     [SerializeField, Header("ReadOnly")]
@@ -15,6 +20,9 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
 
     [SerializeField]
     protected bool lookLeft, lookUp, lookDown, lookRight, moving;
+
+    [SerializeField]
+    protected float speed;
 
     [SerializeField]
     protected int state;
@@ -30,15 +38,22 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
         movingUpParam = Animator.StringToHash("isMovingUp"),
         movingDownParam = Animator.StringToHash("isMovingDown");
 
+    [Header("AfterImage")]
+    [SerializeField]
+    protected SpriteRenderer afterImage;
+    [SerializeField]
+    protected float afterImageCreate = 0.01f, afterImageDuration = 0.4f;
+
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        strat = GetComponentInParent<ACharacterStrategy>();
+        if (afterImage != null) StartCoroutine(AfterImage());
     }
 
-    protected virtual void SetAnimatorValues(float angle, float speed) {
-        animator.SetFloat(speedParam, speed);
-
+    protected virtual void ComputeAnimatorValues(float angle, float speed) {
+        this.speed = speed;
         lookLeft = angle < 270 - verticalFieldDegrees / 2 && angle > 90 + verticalFieldDegrees / 2;
         lookRight = angle < 90 - verticalFieldDegrees / 2 || angle > 270 + verticalFieldDegrees / 2;
         lookUp = angle <= 90 + verticalFieldDegrees / 2 && angle >= 90 - verticalFieldDegrees / 2;
@@ -60,9 +75,11 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
         } else {
             state = 0;
         }
+    }
 
+    protected virtual void SetAnimatorValues() {
         animator.SetInteger(stateParam, state);
-
+        animator.SetFloat(speedParam, speed);
         animator.SetBool(movingParam, moving && (lookRight || lookLeft));
         animator.SetBool(movingUpParam, moving && lookUp);
         animator.SetBool(movingDownParam, moving && lookDown);
@@ -72,5 +89,21 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    protected IEnumerator AfterImage() {
+        WaitForSeconds wait = new(afterImageCreate);
+        while (true) {
+            if (strat.isSprinting) {
+                SpriteRenderer aImg = Instantiate(afterImage, transform.position, Quaternion.identity, transform);
+                aImg.transform.SetParent(null, true);
+                aImg.gameObject.SetActive(true);
+
+                aImg.sprite = spriteRenderer.sprite;
+
+                aImg.DOFade(0f, afterImageDuration).SetLink(aImg.gameObject).OnComplete(() => Destroy(aImg.gameObject));
+            }
+            yield return wait;
+        }
     }
 }

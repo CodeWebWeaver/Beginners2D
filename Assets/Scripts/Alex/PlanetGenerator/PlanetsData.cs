@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
-using static UnityEngine.Rendering.STP;
 
 [CreateAssetMenu(fileName = "PlanetData", menuName = "PlanetGen/Planets Data")]
 [DataSource(DataSourceType.Resources, "StarMap/PlanetData")]

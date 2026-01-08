@@ -12,6 +12,7 @@ public class UIModuleSelecter : MonoBehaviour
 
     private void Awake() {
         LoadIcons();
+        Debug.Log(iconCache);
     }
 
     void LoadIcons() {
@@ -51,6 +52,9 @@ public class UIModuleSelecter : MonoBehaviour
         onSelectModule.Invoke(selected);
         panel.SetActive(false);
         Time.timeScale = 1f;
+        if (selected.unique) {
+            LDirectory2D.Instance.LoadedModules.Remove(selected);
+        }
     }
 
     List<ModuleJson> GetRandomModules(List<ModuleJson> modules, int count)

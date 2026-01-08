@@ -7,7 +7,6 @@ public class PlayerController2D : MonoBehaviour {
 
     Rigidbody2D body;
     PlayerInputStrategy moveStrat;
-    PlayerCollision2D status;
 
     [SerializeField]
     float maxSpeed = 5, maxAcceleration = 20, 
@@ -30,7 +29,6 @@ public class PlayerController2D : MonoBehaviour {
         pState = LDirectory2D.Instance.pState;
         body = GetComponent<Rigidbody2D>();
         moveStrat = GetComponent<PlayerInputStrategy>();
-        TryGetComponent(out status);
     }
 
     void Update() {
@@ -53,7 +51,7 @@ public class PlayerController2D : MonoBehaviour {
         }
         velocity = body.linearVelocity;         
         Vector3 prevVelocity = velocity;
-        float acceleration = maxAcceleration;
+        float acceleration = maxAcceleration * pState.netMod.accelerationMultiplier;
 
         if (sprintInput && moveStrat.sprintActive && moveStrat.canSprint && moveStrat.canMove) {
             pState.onDash.Invoke();
