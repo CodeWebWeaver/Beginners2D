@@ -29,7 +29,7 @@ public abstract class ABullet2D : MonoBehaviour
     bool targeting = false;
     [SerializeField]
     GameObject target;
-    [SerializeField]
+    [SerializeField, Range(0, 1f)]
     float targetingAmount = 0.1f;
     PlayerInputStrategy pStrat;
 
@@ -44,6 +44,7 @@ public abstract class ABullet2D : MonoBehaviour
     [Header("Child Bullets")]
     [SerializeField]
     ABullet2D childBullet;
+    float facingDirection;
 
     [SerializeField]
     float startSpeed = 10f;
@@ -80,6 +81,7 @@ public abstract class ABullet2D : MonoBehaviour
     }
 
     protected virtual void OnDeath() {
+        facingDirection = rb.linearVelocity.Get2DAngle();
         rb.linearVelocity = Vector3.zero;
         if (deathSplash != null) {
             deathSplash.transform.SetParent(null, true);
@@ -103,12 +105,12 @@ public abstract class ABullet2D : MonoBehaviour
 
     private void SpawnChildBullets() {
         foreach (float angleOffset in angleOffsets) {
-            Vector3 shootDirection = Quaternion.AngleAxis(angleOffset, transform.forward) * transform.right;
+            Vector3 shootDirection = Quaternion.AngleAxis(facingDirection + angleOffset, transform.forward) * transform.right;
             Vector3 placePosition = transform.position + shootDirection * 0.5f;
 
-            GameObject bo = Instantiate(childBullet.gameObject, placePosition, Quaternion.identity, transform);
+            ABullet2D bo = Instantiate(childBullet, placePosition, Quaternion.identity, transform);
             bo.transform.SetParent(null, true);
-            bo.SetActive(true);
+            bo.gameObject.SetActive(true);
             bo.GetComponent<Rigidbody2D>().linearVelocity = (Vector2) shootDirection * startSpeed;
         }
     }

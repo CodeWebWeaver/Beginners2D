@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum EnemyAIState {
@@ -30,11 +31,13 @@ public abstract class AEnemyStrategy : ACharacterStrategy {
     LevelState lState;
 
     public float timeToFire;
+    public bool dead;
 
     protected virtual void Awake() {
         if (target == null) target = LDirectory2D.Instance.player;
         if (facingArrow != null) facingAngle = facingArrow.transform.rotation.eulerAngles.z;
         lState = LDirectory2D.Instance.lState;
+        dead = false;
     }
 
     public override Vector3 AimDirection() {
@@ -42,13 +45,13 @@ public abstract class AEnemyStrategy : ACharacterStrategy {
     }
 
     public override bool FireThisFrame(ABullet2D bullet, ShootParams shootParams) {
-        return true;
+        return !dead;
     }
 
     public virtual Vector3 IdealPosition() {
         Vector3 targetPosition = target.transform.position;
         float targetDistance = Vector3.Distance(targetPosition, transform.position);
-        return targetDistance > idealDistanceFromTarget ? targetPosition : transform.position;
+        return targetDistance > idealDistanceFromTarget && !dead ? targetPosition : transform.position;
     }
 
     public override Vector3 MoveDirection() {
@@ -84,5 +87,13 @@ public abstract class AEnemyStrategy : ACharacterStrategy {
 
     public override float GetFireRateMult() {
         return 1.0f;
+    }
+
+    public void OnDeath() {
+        dead = true;
+    }
+
+    internal bool TrySprint() {
+        return true;
     }
 }

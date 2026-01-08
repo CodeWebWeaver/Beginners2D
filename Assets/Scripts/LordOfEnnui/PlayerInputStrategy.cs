@@ -37,7 +37,7 @@ public class PlayerInputStrategy : ACharacterStrategy {
 
     [Header("State")]
     public bool sprintActive = true, canSprint = true, canAttack = true, canMove = true;
-    public bool isSprinting = false, isAttacking = false, inputQueued = false;
+    public bool isAttacking = false, inputQueued = false;
     public float aimAngle, assistAngle;
 
     [SerializeField]

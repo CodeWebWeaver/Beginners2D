@@ -41,6 +41,7 @@ public class ModuleJson
     public ModuleType moduleType;
     public string description;
     public string rarity;
+    public bool unique;
 
     // --- Dash ---
     public DashWeapon dashDamage;

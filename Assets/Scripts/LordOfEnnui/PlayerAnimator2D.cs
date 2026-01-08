@@ -1,5 +1,3 @@
-using DG.Tweening;
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -8,29 +6,21 @@ public class PlayerAnimator2D : ASpriteAnimator2D {
     [SerializeField]
     PlayerState pState;
 
-    [SerializeField]
-    PlayerInputStrategy strat;
-
-    [Header("AfterImage")]
-    [SerializeField]
-    SpriteRenderer afterImage;
-
     [Header("Particles")]
     [SerializeField]
     ParticleSystem thrustParticles, sprintParticles, sprintDamageParticles;
     ParticleSystemRenderer thrustRenderer, sprintRenderer, sprintDamageRenderer;
 
     [SerializeField]
-    float particlesPerSecond = 200f, sprintParticleCount = 1000f, damageSprintParticleCount = 1000f, afterImageCreate = 0.01f, afterImageDuration = 0.4f;
+    float particlesPerSecond = 200f, sprintParticleCount = 1000f, damageSprintParticleCount = 1000f;
+
 
     protected override void Start()
     {
         base.Start();
         pState = LDirectory2D.Instance.pState;
-        strat = gameObject.GetComponentInParent<PlayerInputStrategy>();
         thrustRenderer = thrustParticles.gameObject.GetComponent<ParticleSystemRenderer>();
         sprintRenderer = sprintParticles.gameObject.GetComponent<ParticleSystemRenderer>();
-        StartCoroutine(AfterImage());
     }
 
     void FixedUpdate() {
@@ -57,22 +47,6 @@ public class PlayerAnimator2D : ASpriteAnimator2D {
             } else {
                 pSys.Emit(particles);
             }
-        }
-    }
-
-    IEnumerator AfterImage() {
-        WaitForSeconds wait = new(afterImageCreate);
-        while (true) {
-            if (strat.isSprinting) {
-                SpriteRenderer aImg = Instantiate(afterImage, transform.position, Quaternion.identity, transform);
-                aImg.transform.SetParent(null, true);
-                aImg.gameObject.SetActive(true);
-            
-                aImg.sprite = spriteRenderer.sprite;
-
-                aImg.DOFade(0f, afterImageDuration).SetLink(aImg.gameObject).OnComplete(() => Destroy(aImg));
-            }
-            yield return wait;
         }
     }
 }
