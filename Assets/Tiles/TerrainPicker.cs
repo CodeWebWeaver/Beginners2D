@@ -360,16 +360,11 @@ public class TerrainPicker : MonoBehaviour
         }
         
 
-        
-        if (_oilPlacer != null) {
-            Debug.Log("Making Oil");
-            _oilPlacer.MakeOil(_borderSizeX, _borderSizeY, oilCount);
-        }
-        if (_obstaclePlacer != null) {
-            Debug.Log("Making obstacles");
-            // _obstaclePlacer.MakeObstacles(_terrainLabel,_obstacleDensity);//set input to % of tiles having obstacles, 1-20
-            _obstaclePlacer.MakeObstacles(_terrainLabel, obsDensity, _borderSizeX, _borderSizeY);//set input to % of tiles having obstacles, 1-20
-        }
+        Debug.Log("Making Platform");
+        _modulePlacer.MakePlatform(_borderSizeX,_borderSizeY);
+
+        Debug.Log("Making Oil");
+        _oilPlacer.MakeOil(_borderSizeX,_borderSizeY,oilCount);
 
         
         if (_enemyPlacer!= null) {
