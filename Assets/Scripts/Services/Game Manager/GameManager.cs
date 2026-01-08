@@ -13,7 +13,12 @@ public class GameManager : MonoBehaviour, IGameManager {
     private void Start() {
         _gameStateMachine = new ContextStateMachine<GameManager>(this, stateFactory);
 
+        _gameStateMachine.OnStateEnter += HandleStateChanged;
         _gameStateMachine.ChangeState<BootstrapState>();
+    }
+
+    private void HandleStateChanged(IState state) {
+        Debug.Log($"State changed to : {state}");
     }
 
     private void OnApplicationQuit() {
@@ -22,7 +27,7 @@ public class GameManager : MonoBehaviour, IGameManager {
     }
     public void StartNewGame() {
         Debug.Log("Game Started!");
-        _levelProgress.SetProgress(new LevelProgress { CurrentLevel = 1 });
+        _levelProgress.SetProgress(new PlayerProgressData { CurrentLevel = 1 });
         _gameStateMachine.ChangeState<LoadingLevelState>();
     }
 
@@ -59,6 +64,24 @@ public class GameManager : MonoBehaviour, IGameManager {
 #else
         Application.Quit();
 #endif
+    }
+
+    private void OnDestroy() {
+        _gameStateMachine.OnStateEnter -= HandleStateChanged;
+    }
+
+    public void LoadStarExploration(Star selectedStar) {
+        Debug.Log("Request to load: " + selectedStar);
+        _gameStateMachine.ChangeState<LoadingTerrainState>();
+    }
+
+    public void LoadMapScene() {
+        Debug.Log("Request to load map scene");
+        _gameStateMachine.ChangeState<LoadingMapState>();
+    }
+
+    public void FinishGame() {
+        Debug.Log("Request to finish game");
     }
 }
 

@@ -25,6 +25,7 @@ public class PlayerState : ScriptableObject {
     public UnityEvent onDash;
     public UnityEvent<ModulePickup> onModulePickup;
     public UnityEvent<OilPickup> onOilPickup;
+    public UnityEvent onSufficientOil;
 
     [Header("Audio")]
     public float moveSpeedForAudio;
@@ -104,6 +105,9 @@ public class PlayerState : ScriptableObject {
     public void ObtainOil(OilPickup oil) {
         currentOil +=  (oil.amount * netMod.oilMultiplier);
         onOilPickup.Invoke(oil);
+        if (currentOil >= requiredOil) {
+            onSufficientOil.Invoke();
+        }
     }
 
     public void OnFire() {

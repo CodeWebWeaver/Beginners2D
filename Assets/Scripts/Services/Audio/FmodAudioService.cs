@@ -55,8 +55,6 @@ public class FmodAudioService : IAudioService {
         bus.setVolume(Mathf.Clamp01(normalizedVolume));
     }
 
-    
-
     public List<AudioChannelType> GetSupportedChannelsTypes() {
         return new List<AudioChannelType>(buses.Keys);
     }
@@ -386,24 +384,3 @@ public class FmodAudioService : IAudioService {
 
     #endregion
 }
-
-#region Data Classes
-
-[Serializable]
-public class AudioSettings {
-    public List<AudioChannel> channels = new();
-}
-
-[Serializable]
-public class AudioChannel {
-    public string name;
-    public AudioChannelType ChannelType;
-    public float Volume;
-}
-
-public interface IPersistentObject<T> {
-    T LoadData();
-    void SaveData(T data);
-}
-
-#endregion

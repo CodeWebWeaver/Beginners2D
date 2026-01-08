@@ -39,7 +39,7 @@ public class Spaceship2D : MonoBehaviour {
 
     private void Awake() {
         InitializeRigidbody();
-        stateMachine.OnStateChanged += UpdateField;
+        stateMachine.OnStateEnter += UpdateField;
         stateMachine.ChangeState<IdleSpaceShipState>();
     }
 
@@ -245,7 +245,7 @@ public class Spaceship2D : MonoBehaviour {
 
     private void OnDestroy() {
         if (stateMachine != null) {
-            stateMachine.OnStateChanged -= UpdateField;
+            stateMachine.OnStateEnter -= UpdateField;
         }
     }
 

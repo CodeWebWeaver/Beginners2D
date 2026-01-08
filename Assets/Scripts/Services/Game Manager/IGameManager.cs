@@ -4,5 +4,8 @@ public interface IGameManager {
     void ExitToMainMenu();
     void ExitGame();
     void TogglePause();
+    void LoadStarExploration(Star selectedStar);
+    void LoadMapScene();
+    void FinishGame();
 }
 

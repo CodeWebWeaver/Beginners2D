@@ -1,6 +1,7 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Collections.Generic;
 
 public class TerrainPicker : MonoBehaviour
 { 
@@ -289,8 +290,8 @@ public class TerrainPicker : MonoBehaviour
             }
         }
 
-        Debug.Log("Making Modules");
-        _modulePlacer.MakeModules(_modulesList,_borderSizeX,_borderSizeY);
+        // Debug.Log("Making Modules");
+        // _modulePlacer.MakeModules(_modulesList,_borderSizeX,_borderSizeY);
 
         Debug.Log("Making obstacles");
         _obstaclePlacer.MakeObstacles(_terrainLabel,_obstacleDensity);//set input to % of tiles having obstacles, 1-20
@@ -301,7 +302,7 @@ public class TerrainPicker : MonoBehaviour
     }
 
     private void pickRandomTerrain(){
-        int terrainnum  = Random.Range(1, 9); 
+        int terrainnum  = UnityEngine.Random.Range(1, 9); 
         switch(terrainnum) 
         {
         case 1:
@@ -367,7 +368,7 @@ public class TerrainPicker : MonoBehaviour
     }
 
     private int pickRandomTile(){
-        int tilenum  = Random.Range(1, 5); 
+        int tilenum  = UnityEngine.Random.Range(1, 5); 
         return tilenum;
     }
 
@@ -377,3 +378,4 @@ public class TerrainPicker : MonoBehaviour
         return;
     }
 }
+
