@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1385218920147234918}
   - component: {fileID: 3409390473283342087}
   - component: {fileID: 364121685780728825}
+  - component: {fileID: 8049794050130954570}
   m_Layer: 0
   m_Name: Module
   m_TagString: Untagged
@@ -27,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835361299675822293}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 5.23, y: 1.92, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!212 &1385218920147234918
 SpriteRenderer:
   serializedVersion: 2
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -601167320069568822, guid: aec8e54a7c244d54a95117c47c664cc3, type: 3}
+  m_Sprite: {fileID: -2761387464772835428, guid: 2d3dd2b96d18d224cb39ebc91b92f518, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -91,7 +92,7 @@ SpriteRenderer:
   m_Size: {x: 2.41, y: 2.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!61 &3409390473283342087
 BoxCollider2D:
@@ -131,13 +132,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.41, y: 2.24}
+    oldSize: {x: 0.27, y: 0.2}
     newSize: {x: 2.41, y: 2.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.41, y: 2.24}
+  m_Size: {x: 2.5, y: 2.5}
   m_EdgeRadius: 0
 --- !u!114 &364121685780728825
 MonoBehaviour:
@@ -151,4 +152,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7894eb3df1c98d49abee964e051b31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WrenchPickup
-  moduleUI: {fileID: 0}
+--- !u!114 &8049794050130954570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835361299675822293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4eca857be54c9d4fb979f0b26e67f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  rotationDuration: 6
+  rotationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.008225293
+      outSlope: 0.008225293
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.35810682
+    - serializedVersion: 3
+      time: 0.6230967
+      value: 0.13429248
+      inSlope: 0.8627637
+      outSlope: 0.8627637
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.99863815
+      inSlope: -0.06386814
+      outSlope: -0.06386814
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08527788
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

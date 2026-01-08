@@ -101,7 +101,7 @@ public abstract class ASpriteAnimator2D : MonoBehaviour {
 
                 aImg.sprite = spriteRenderer.sprite;
 
-                aImg.DOFade(0f, afterImageDuration).SetLink(aImg.gameObject).OnComplete(() => Destroy(aImg));
+                aImg.DOFade(0f, afterImageDuration).SetLink(aImg.gameObject).OnComplete(() => Destroy(aImg.gameObject));
             }
             yield return wait;
         }

@@ -82,12 +82,8 @@ public class PlayerState : ScriptableObject {
         float newMaxHealth = baseMaxHealth + netMod.healthModifier;
         newMaxHealth = Mathf.Max(1, newMaxHealth); // never allow 0 or less
 
-        //adjusting health proportionally
-        float healthPercent = currentHealth / Mathf.Max(1, maxHealth);
         maxHealth = newMaxHealth;
-        currentHealth = Mathf.Clamp(maxHealth * healthPercent, 1, maxHealth);
-        Debug.Log("max-health: " + maxHealth);
-        Debug.Log("current-health: " + currentHealth);
+        currentHealth = Mathf.Clamp(currentHealth + netMod.healthModifier, 1, maxHealth);
 
         damageIframesDuration = baseDamageIframesDuration + netMod.damageIframesBonus;
         damageIframesDuration = Mathf.Max(0.05f, damageIframesDuration);

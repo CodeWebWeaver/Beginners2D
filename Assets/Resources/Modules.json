@@ -37,7 +37,7 @@
             "icon": "Chassis",
             "name": "Reinforced Chassis",
             "moduleType": 0,
-            "description": "Get 3 to Add Another Health Wheel",
+            "description": "+2 Health",
             "healthModifier": 2
         },
 
