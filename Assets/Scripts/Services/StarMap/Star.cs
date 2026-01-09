@@ -14,6 +14,8 @@ public class Star {
     public ReactiveProperty<bool> IsAvailable { get; }
     public ReactiveProperty<bool> IsCurrent { get; }
     public ReactiveProperty<bool> IsVisited { get; }
+    public bool IsLast { get; set; } = false;
+
     public Star(int layer, int index, string name = "Unknown") {
         Id = Guid.NewGuid();
         Coord = new LayerCoord(layer, index);

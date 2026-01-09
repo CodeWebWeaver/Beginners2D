@@ -552,8 +552,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -99.99987, y: -59.99995}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: -25}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &838247835
 MonoBehaviour:
@@ -575,7 +575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '             Hello.... Curiosity'
+  m_text: Hello.... Curiosity
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab6acca57a1dca74eb8801dea2baaca8, type: 2}
   m_sharedMaterial: {fileID: -4481352138611683368, guid: ab6acca57a1dca74eb8801dea2baaca8, type: 2}

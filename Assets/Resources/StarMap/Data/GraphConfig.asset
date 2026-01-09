@@ -15,11 +15,11 @@ MonoBehaviour:
   instanceName: GraphGenerationConfig
   _seedString: simple_seed
   _useRandomSeed: 0
-  levelCount: 7
+  levelCount: 5
   initialNodesPerLevel: 3
   minNodesPerLevel: 3
-  maxNodesPerLevel: 5
-  maxNodeDeviation: 3
+  maxNodesPerLevel: 10
+  maxNodeDeviation: 7
   allowGradualIncrease: 1
   allowGradualDecrease: 1
   graphPipelineConfig: {fileID: 11400000, guid: 76097d98890aff941a7b9bf8e18aef38, type: 2}

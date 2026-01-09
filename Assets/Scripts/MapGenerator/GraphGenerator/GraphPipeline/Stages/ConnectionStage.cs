@@ -55,7 +55,7 @@ public class ConnectionStage : IPipelineStage<GraphGenerationContext> {
             float distanceFactor = 1f - (nodeDistance.distance / config.MaxConnectionDistance);
             float connectionChance = config.RandomConnectionChance * distanceFactor;
 
-            if (random.Next() <= connectionChance) {
+            if (random.NextDouble() <= connectionChance) {
                 currentNode.ConnectTo(nodeDistance.node);
                 connectionsCreated++;
             }
