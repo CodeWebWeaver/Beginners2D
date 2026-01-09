@@ -8,12 +8,13 @@ public class TerrainPicker : MonoBehaviour
 {
 
     IStarNavigationService starNavigationService;
-    PlanetConfig planetConfig;
+    [SerializeField]
+    BiomeData biomeData;
 
     [Inject]
     void StarNavigationService(IStarNavigationService service) {
         Debug.Log("LOAD: " + service.CurrentStar.PlanetConfig.BiomeLabel);
-        planetConfig = service.CurrentStar.PlanetConfig;
+        biomeData = service.CurrentStar.PlanetConfig.biomeData;
         starNavigationService = service;
     }
 
@@ -178,7 +179,7 @@ public class TerrainPicker : MonoBehaviour
 
     void Start(){
         if(levelisLoaded==false){
-            setTiles(new List<GameObject>(), starNavigationService.CurrentStar.PlanetConfig.BiomeLabel);
+            setTiles(new List<GameObject>(biomeData.enemyPrefabs), biomeData.biomeLabel, biomeData.spawnRate, biomeData.obstacleDensity, biomeData.moduleCount, biomeData.oilCount);
         }
     }    
     
