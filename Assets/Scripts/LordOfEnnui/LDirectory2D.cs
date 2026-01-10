@@ -47,6 +47,7 @@ public class LDirectory2D : MonoBehaviour {
         pState.OnNewLevel();
         lState = Instantiate(defaultLevelState);
 
+        //Commented this out to work on modules, this was not letting the code reach LoadedModules()
         lastLevel = starNavigationService.CurrentStar.IsLast;
 
         LoadModules(pState.modules);
