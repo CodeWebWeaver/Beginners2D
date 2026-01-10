@@ -4306,7 +4306,7 @@ PrefabInstance:
       objectReference: {fileID: 2067734739}
     - target: {fileID: 8928919092424792445, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
       propertyPath: sprintCooldown
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8928919092424792445, guid: fcf5d37842bafc04982d9c725d052b4e, type: 3}
       propertyPath: sprintResetCooldown

@@ -204,7 +204,7 @@ MonoBehaviour:
   isSprinting: 0
   target: {fileID: 0}
   facingArrow: {fileID: 0}
-  enemyRange: 20
+  enemyRange: 15
   facingAngle: 0
   speed: 0
   idealDistanceFromTarget: 0
